@@ -1,4 +1,5 @@
 import argparse
+from urllib.request import urlopen
 
 # Requires --type [word_type] argument, which specifies from which
 # dictionary the program searches for words.
@@ -8,6 +9,6 @@ parser.add_argument("--type", required=True, choices=["gismu",
 
 word_type = parser.parse_args().type
 
-# Displays the url that will be used to grab words. This will be
-# replaced with the urlopen code using urllib.
-print("http://vlasisku.lojban.org/vlasisku/" + word_type)
+# Words of type [word_type] can be found at the url below
+url = "http://vlasisku.lojban.org/vlasisku/" + word_type
+content = urlopen(url).read()
