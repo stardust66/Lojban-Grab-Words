@@ -43,3 +43,8 @@ if __name__ == "__main__":
         words[word] = definition
 
         start_index = content.find("<dt>", def_end_index)
+
+    # Store result in a file
+    with open("valsi.txt", "w+") as word_file:
+        for item, meaning in words.items():
+            word_file.write(item + ": " + meaning + "\n")
