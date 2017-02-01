@@ -36,8 +36,8 @@ if __name__ == "__main__":
         definition = content[def_start_index:def_end_index + 5]
 
         # Use regex to remove tags
-        word = re.sub(html_tags, '', word)
-        definition = re.sub(html_tags, '', definition)
+        word = re.sub(html_tags, "", word)
+        definition = re.sub(html_tags, "", definition)
 
         # Remove forward slashes
         word = word.replace("\\", "")
