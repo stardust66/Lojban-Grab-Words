@@ -25,7 +25,20 @@ if __name__ == "__main__":
     word_count = 0
     words = {}
     word_index = content.find("On type:")
-    start_index = content.find("<dt>", word_index)
+
+    # If the file valsi.txt exists, read the first line to get the
+    # start_index from the previous run.
+    try:
+        with open("valsi.txt") as file:
+            # Check if the type of word used last time is the same as this
+            # time
+            if file.readline().rstrip("\n") == word_type: # first line of file
+                start_index = int(file.readline()) # second line
+            else:
+                start_index = content.find("<dt>", word_index)
+    except OSError:
+        print("File doesn't exist")
+        start_index = content.find("<dt>", word_index)
 
     # Regex object for matching html tags (things inside angle brackets)
     html_tags = re.compile("<.*?>")
@@ -54,5 +67,7 @@ if __name__ == "__main__":
 
     # Store result in a file
     with open("valsi.txt", "w+") as word_file:
+        word_file.write(word_type + "\n")
+        word_file.write("{}\n".format(start_index))
         for item, meaning in words.items():
             word_file.write(item + ": " + meaning + "\n")
