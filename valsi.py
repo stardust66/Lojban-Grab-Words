@@ -39,6 +39,10 @@ if __name__ == "__main__":
         word = re.sub(html_tags, '', word)
         definition = re.sub(html_tags, '', definition)
 
+        # Remove forward slashes
+        word = word.replace("\\", "")
+        definition = definition.replace("\\", "")
+
         # Store result in dictionary
         words[word] = definition
 
