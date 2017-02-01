@@ -8,10 +8,13 @@ parser = argparse.ArgumentParser(description="Grab words from vlasisku.")
 parser.add_argument("--type", required=True, choices=["gismu", "cmavo",
                     "experimental-cmavo", "fu'ivla", "cmene"], help="The type\
                     of word to grab.")
+parser.add_argument("--limit", required=False, type=int, default=20,
+                    help="The number of words to put in the file.")
 
 # Only execute the following if used in the command line.
 if __name__ == "__main__":
     word_type = parser.parse_args().type
+    word_limit = parser.parse_args().limit
 
     # Words of type [word_type] can be found at the url below
     url = "http://vlasisku.lojban.org/vlasisku/" + word_type
@@ -27,7 +30,7 @@ if __name__ == "__main__":
     # Regex object for matching html tags (things inside angle brackets)
     html_tags = re.compile("<.*?>")
 
-    while word_count < 20 and start_index != -1:
+    while word_count < word_limit and start_index != -1:
         end_index = content.find("</dt>", start_index)
         def_start_index = content.find("<dd>", end_index)
         def_end_index = content.find("</dd>", def_start_index)
@@ -46,6 +49,7 @@ if __name__ == "__main__":
         # Store result in dictionary
         words[word] = definition
 
+        word_count += 1
         start_index = content.find("<dt>", def_end_index)
 
     # Store result in a file
