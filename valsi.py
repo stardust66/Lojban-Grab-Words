@@ -6,10 +6,11 @@ import re
 
 # Requires --type [word_type] argument, which specifies from which
 # dictionary the program searches for words.
-parser = argparse.ArgumentParser(description="Grab words from vlasisku.")
+parser = argparse.ArgumentParser(description="Grab words from"
+        " vlasisku.lojban.org, a Lojban dictionary.")
 parser.add_argument("--type", required=True, choices=["gismu", "cmavo",
-                    "experimental-cmavo", "fu'ivla", "cmene"], help="The type\
-                    of word to grab.")
+                    "experimental-cmavo", "fu'ivla", "cmene"], help="The type"
+                    " of word to grab.")
 parser.add_argument("--limit", required=False, type=int, default=20,
                     help="The number of words to put in the file.")
 
